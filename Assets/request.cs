@@ -18,7 +18,7 @@ public class request : MonoBehaviour
         public string other_info;
     }
 
-
+    public string unko;
 
 
 
