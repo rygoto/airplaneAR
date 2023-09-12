@@ -137,7 +137,7 @@ public class python : MonoBehaviour
                 float angle = Mathf.Atan2(forwardVector.y, forwardVector.x) * Mathf.Rad2Deg;
 
                 // 指定したangleの向きにオブジェクトを回転させるQuaternionを計算
-                Quaternion newRotation = Quaternion.Euler(0f, angle + 180f, 0f);
+                Quaternion newRotation = Quaternion.Euler(0f, angle + 180f, -90f);
 
                 // オブジェクトの回転を新しい回転に設定
                 aircraft.transform.rotation = newRotation;
@@ -157,6 +157,7 @@ public class python : MonoBehaviour
                     }
 
                     aircraftController.SetFlightData(flightDataForAircraft);
+                    aircraftController.ShowFlightData(flightDataForAircraft);
                 }
                 else
                 {

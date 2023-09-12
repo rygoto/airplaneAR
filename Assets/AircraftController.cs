@@ -6,6 +6,9 @@ using UnityEngine.UI;
 
 public class AircraftController : MonoBehaviour
 {
+    [SerializeField]
+    public TextMeshProUGUI overHeadMsg;
+
     [System.Serializable]
     public class FlightData
     {
@@ -36,4 +39,11 @@ public class AircraftController : MonoBehaviour
         originText.text = "Origin: " + (flightData.new_origin ?? "N/A");
 
     }
+
+    public void ShowFlightData(FlightData flightData)
+    {
+        string flightRoute = flightData.new_origin + " to " + flightData.new_destination;
+        overHeadMsg.text = flightRoute;
+    }
+
 }
