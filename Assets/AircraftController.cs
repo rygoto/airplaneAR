@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -11,15 +12,13 @@ public class AircraftController : MonoBehaviour
         public string airline_short_name;
         public string new_destination;
         public string new_origin;
-        public string unity_coordinates;
-        public string unity_heading;
-        public Vector3 instantiatePosition;
-        public Vector2 forwardVector;
+        //public string unity_coordinates;
+        //public string unity_heading;
     }
 
-    public Text airlineText; // 航空会社のテキストUI
-    public Text destinationText; // 目的地のテキストUI
-    public Text originText; // 出発地のテキストUI
+    public TextMeshProUGUI airlineText; // 航空会社のテキストUI
+    public TextMeshProUGUI destinationText; // 目的地のテキストUI
+    public TextMeshProUGUI originText; // 出発地のテキストUI
 
     public float speed = 5.0f; // 航空機の速度
 

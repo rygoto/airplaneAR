@@ -76,15 +76,18 @@ def get_flight_data(latitude, longitude, radius):
         print(f"Error fetching flight data from FlightRadar24 API: {str(e)}")
         # エラーが発生した場合に代替データを生成
         alternative_data = []
+        # これが定義じゃないのか　スコープが違う
         for _ in range(5):
             new_flight = {}
 
-            new_flight["Airline"] = random.choice(["ANA", "JAL"])
-            new_flight["Destination Airport"] = random.choice(
+            new_flight["airline_short_name"] = random.choice(
+                ["ANA", "JAL", "CHUO-SPECIAL"]
+            )
+            new_flight["new_destination"] = random.choice(
                 ["OOSAKI", "SOKA", "ZOSHIGAYA"]
             )
-            new_flight["Origin Airport"] = random.choice(
-                ["OOKUBO", "HAKATA", "MEMANBETSU"]
+            new_flight["new_origin"] = random.choice(
+                ["OOKUBO", "HAKATA", "MEMANBETSU", "SHIMOSHIMMEI"]
             )
 
             unko = 1 / 111.32
@@ -115,43 +118,30 @@ def hello_http(request):
     longitude = float(request.args.get("lon"))
     radius = float(request.args.get("r"))
 
-    try:
-        flight_data = get_flight_data(latitude, longitude, radius)
-        return jsonify(flight_data)
-    except Exception as e:
-        print(f"Error fetching flight data: {str(e)}")
-        alternative_data = []
-        for _ in range(5):
-            new_flight = {}
+    # try:
+    #     flight_data = get_flight_data(latitude, longitude, radius)
+    #     return jsonify(flight_data)
+    # except Exception as e:
+    #     print(f"Error fetching flight data: {str(e)}")
+    #     alternative_data = get_flight_data(latitude, longitude, radius)
+    #     return jsonify(alternative_data)
 
-            new_flight["Airline"] = random.choice(["ANA", "JAL"])
-            new_flight["Destination Airport"] = random.choice(
-                ["OOSAKI", "SOKA", "ZOSHIGAYA"]
-            )
-            new_flight["Origin Airport"] = random.choice(
-                ["MEIDAIMAE", "HAKATA", "MEMANBETSU"]
-            )
+    flight_data = get_flight_data(latitude, longitude, radius)
+    return jsonify(flight_data)
+    # ctrl + /でコメントアウトできる　定義されてないからだ
+    # というよりget_flight_dataでエラーハンドリングしてるから
+    # ここではtry except しなくていいほうほう
+    # もしget_flight_data内でエラーが起きてもreturn alternative_dataされるから
+    # get_flight_dataの呼び出し側ではエラーは絶対に起きない
+    # そもそもこっちじゃalternative_dataは定義されてない！
+    # これだけでいい
+    # だってget_flight_data内でエラーが起きてもreturn alternative_dataされるだろ！
+    # pythonよくわからんがされると思う・・・
 
-            unko = 1 / 111.32
-            a_random = latitude + random.uniform(-unko, unko)
-            b_random = longitude + random.uniform(-unko, unko)
-            new_flight["longitude_latitude"] = f"({b_random},{a_random})"
-
-            heading_degrees = random.uniform(0, 360)
-            heading_radians = math.radians(heading_degrees)
-            new_flight[
-                "unity_heading"
-            ] = f"({math.cos(heading_radians)},{math.sin(heading_radians)})"
-
-            scale = 100
-            x = (b_random - longitude) * (radius / 111.32) * scale
-            z = (a_random - latitude) * (radius / 111.32) * scale
-            new_flight["unity_x"] = x
-            new_flight["unity_z"] = z
-
-            alternative_data.append(new_flight)
-
-        return jsonify(alternative_data)
+    # ここなんでダメなんや
+    # 　たしかし。そしたらこっちでflight_dataとalternative_dataを分岐
+    # これでええんか？？　alternative_dataもflight_dataに格納されるんか？あぎゃす
+    # これでやってみるぜ
 
 
 if __name__ == "__main__":

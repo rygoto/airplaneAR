@@ -96,15 +96,15 @@ public class python : MonoBehaviour
     }
 
     [System.Serializable]
-    public class FlightData
+    public class FlightDataResponse
     {
         public string airline_short_name;
         public string new_destination;
         public string new_origin;
         public string unity_coordinates;
         public string unity_heading;
-        public Vector3 instantiatePosition;
-        public Vector2 forwardVector;
+        // public Vector3 instantiatePosition;
+        // public Vector2 forwardVector;
     }
 
 
@@ -112,11 +112,12 @@ public class python : MonoBehaviour
     {
         try
         {
-            AircraftController.FlightData[] flightDataArray = JsonHelper.FromJson<AircraftController.FlightData>(responseText);
+            FlightDataResponse[] flightDataArray = JsonHelper.FromJson<FlightDataResponse>(responseText);
 
-            foreach (AircraftController.FlightData flightData in flightDataArray)
+            foreach (FlightDataResponse flightData in flightDataArray)
             {
                 string[] coordinatedParts = flightData.unity_coordinates.Trim('(', ')').Split(',');
+                // これやな↓　今までこいつは宣言だけしてた意味のない変数だ
                 Vector3 instantiatePosition = new Vector3(
                     float.Parse(coordinatedParts[0]),
                     0,
@@ -147,7 +148,14 @@ public class python : MonoBehaviour
                 // 航空機オブジェクトに情報を設定
                 if (aircraftController != null)
                 {
-                    aircraftController.SetFlightData(flightData);
+                    AircraftController.FlightData flightDataForAircraft = new AircraftController.FlightData();
+                    {
+                        flightDataForAircraft.airline_short_name = flightData.airline_short_name;
+                        flightDataForAircraft.new_destination = flightData.new_destination;
+                        flightDataForAircraft.new_origin = flightData.new_origin;
+                    }
+
+                    aircraftController.SetFlightData(flightDataForAircraft);
                 }
                 else
                 {
