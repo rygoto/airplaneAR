@@ -1,92 +1,158 @@
-import functions_framework
+from flask import Flask, request, jsonify
+import numpy as np
 import json
-from flask import Flask,jsonify
+from FlightRadar24 import FlightRadar24API
+import math
+import random  # randomモジュールをインポート
 
 app = Flask(__name__)
 
-@functions_framework.http
+fr_api = FlightRadar24API(...)  # FlightRadar24APIの設定を追加
+
+
+def extract_first_two_words(name):
+    words = name.split()
+    if len(words) >= 2:
+        return " ".join(words[:2])
+    else:
+        return name
+
+
+# flightradarapiからのデータ取得を試行し、エラーが発生した場合に代替データを格納する関数
+def get_flight_data(latitude, longitude, radius):
+    try:
+        selected_flights = []
+        for flight in fr_api.get_flights():
+            flight_latitude = flight.latitude
+            flight_longitude = flight.longitude
+            distance = np.sqrt(
+                (flight_latitude - latitude) ** 2 + (flight_longitude - longitude) ** 2
+            )
+            if distance <= (radius / 111.32):
+                selected_flights.append(flight)
+
+        flight_data = []
+        for new_flight in selected_flights:
+            details = fr_api.get_flight_details(new_flight.id)
+            new_flight.set_flight_details(details)
+
+            # 情報の変換
+            x = (new_flight.longitude - longitude) * (radius / 111.32)
+            z = (new_flight.latitude - latitude) * (radius / 111.32)
+
+            heading_degrees = new_flight.heading
+            heading_radians = math.radians(heading_degrees)
+            heading_x = math.cos(heading_radians)
+            heading_z = math.sin(heading_radians)
+
+            origin_name = new_flight.origin_airport_name
+            origin_code = extract_first_two_words(origin_name)
+
+            destination_name = new_flight.destination_airport_name
+            destination_code = extract_first_two_words(destination_name)
+
+            # 格納
+            new_flight.unity_x = x
+            new_flight.unity_z = z
+            new_flight.unity_heading_x = heading_x
+            new_flight.unity_heading_z = heading_z
+            new_flight.new_origin = origin_code
+            new_flight.new_destination = destination_code
+
+            data = {
+                "airline_short_name": new_flight.airline_short_name,
+                "new_origin": new_flight.new_origin,
+                "new_destination": new_flight.new_destination,
+                "unity_coordinates": f"({new_flight.unity_x},{new_flight.unity_z})",
+                "unity_heading": f"({new_flight.unity_heading_x},{new_flight.unity_heading_z})",
+                "longitude_latitude": f"({new_flight.longitude},{new_flight.latitude})",
+            }
+
+            flight_data.append(data)
+
+        return flight_data
+
+    except Exception as e:
+        print(f"Error fetching flight data from FlightRadar24 API: {str(e)}")
+        # エラーが発生した場合に代替データを生成
+        alternative_data = []
+        for _ in range(5):
+            new_flight = {}
+
+            new_flight["Airline"] = random.choice(["ANA", "JAL"])
+            new_flight["Destination Airport"] = random.choice(
+                ["OOSAKI", "SOKA", "ZOSHIGAYA"]
+            )
+            new_flight["Origin Airport"] = random.choice(
+                ["OOKUBO", "HAKATA", "MEMANBETSU"]
+            )
+
+            unko = 1 / 111.32
+            a_random = latitude + random.uniform(-unko, unko)
+            b_random = longitude + random.uniform(-unko, unko)
+            new_flight["longitude_latitude"] = f"({b_random},{a_random})"
+
+            heading_degrees = random.uniform(0, 360)
+            heading_radians = math.radians(heading_degrees)
+            new_flight[
+                "unity_heading"
+            ] = f"({math.cos(heading_radians)},{math.sin(heading_radians)})"
+
+            scale = 100
+            x = (b_random - longitude) * (radius / 111.32) * scale
+            z = (a_random - latitude) * (radius / 111.32) * scale
+            new_flight["unity_x"] = x
+            new_flight["unity_z"] = z
+
+            alternative_data.append(new_flight)
+
+        return alternative_data
+
+
+@app.route("/", methods=["GET"])
 def hello_http(request):
-    # 各オブジェクトに対する JSON データをリストに格納
-    if request.method = 'POST':
-    data = request.get_json()
+    latitude = float(request.args.get("lat"))
+    longitude = float(request.args.get("lon"))
+    radius = float(request.args.get("r"))
 
-    arg1 = float(data.get('arg1'))
+    try:
+        flight_data = get_flight_data(latitude, longitude, radius)
+        return jsonify(flight_data)
+    except Exception as e:
+        print(f"Error fetching flight data: {str(e)}")
+        alternative_data = []
+        for _ in range(5):
+            new_flight = {}
 
-    object_data_list = [
-        {
-            "position": {"x": arg1, "y": 2.0, "z": 3.0},
-            "name": "Object1",
-            "move_direction": {"x": 0.1, "y": 0.0, "z": -0.2},
-            "other_info": "This is additional information for Object1."
-        },
-        {
-            "position": {"x": 4.0, "y": 5.0, "z": 6.0},
-            "name": "Object2",
-            "move_direction": {"x": -0.1, "y": 0.0, "z": 0.2},
-            "other_info": "This is additional information for Object2."
-        },
-        {
-            "position": {"x": 8.0, "y": 14.0, "z": 9.0},
-            "name": "Object3",
-            "move_direction": {"x": -0.2, "y": 4.0, "z": 2.2},
-            "other_info": "This is additional information for Object3."
-        },
-        {
-            "position": {"x": 8.0, "y": 9.0, "z": 6.0},
-            "name": "Object4",
-            "move_direction": {"x": -0.9, "y": 6.0, "z": 5.2},
-            "other_info": "This is additional information for Object4."
-        },
-        # 他のオブジェクトのデータも同様に追加
-    ]
+            new_flight["Airline"] = random.choice(["ANA", "JAL"])
+            new_flight["Destination Airport"] = random.choice(
+                ["OOSAKI", "SOKA", "ZOSHIGAYA"]
+            )
+            new_flight["Origin Airport"] = random.choice(
+                ["MEIDAIMAE", "HAKATA", "MEMANBETSU"]
+            )
 
-    # Unity 側に送信する JSON データを選択
-    #selected_data = object_data[0]  # この例では最初のオブジェクトのデータを選択
+            unko = 1 / 111.32
+            a_random = latitude + random.uniform(-unko, unko)
+            b_random = longitude + random.uniform(-unko, unko)
+            new_flight["longitude_latitude"] = f"({b_random},{a_random})"
 
-    return jsonify(object_data_list)
+            heading_degrees = random.uniform(0, 360)
+            heading_radians = math.radians(heading_degrees)
+            new_flight[
+                "unity_heading"
+            ] = f"({math.cos(heading_radians)},{math.sin(heading_radians)})"
 
+            scale = 100
+            x = (b_random - longitude) * (radius / 111.32) * scale
+            z = (a_random - latitude) * (radius / 111.32) * scale
+            new_flight["unity_x"] = x
+            new_flight["unity_z"] = z
 
+            alternative_data.append(new_flight)
 
-
-
-    # if request_json:
-    #     # JSONデータから必要な情報を取得
-    #     position = request_json.get("position", {"x": 0, "y": 0, "z": 0})
-    #     name = request_json.get("name", "Unknown")
-    #     move_direction = request_json.get("move_direction", {"x": 0, "y": 0, "z": 0})
-    #     other_info = request_json.get("other_info", "")
-
-    #     # 応答データを作成
-    #     response_data = {
-    #         "position": position,
-    #         "name": name,
-    #         "move_direction": move_direction,
-    #         "other_info": other_info
-    #     }
-
-    #     # JSON形式でレスポンスを返す
-    #     return jsonify(response_data)
-    # else:
-    #     # リクエストがJSONデータを含まない場合のエラーレスポンス
-    #     return "Bad Request: JSON data not provided", 400
+        return jsonify(alternative_data)
 
 
-    # """HTTP Cloud Function.
-    # Args:
-    #     request (flask.Request): The request object.
-    #     <https://flask.palletsprojects.com/en/1.1.x/api/#incoming-request-data>
-    # Returns:
-    #     The response text, or any set of values that can be turned into a
-    #     Response object using `make_response`
-    #     <https://flask.palletsprojects.com/en/1.1.x/api/#flask.make_response>.
-    # """
-    # request_json = request.get_json(silent=True)
-    # request_args = request.args
-
-    # if request_json and 'name' in request_json:
-    #     name = request_json['name']
-    # elif request_args and 'name' in request_args:
-    #     name = request_args['name']
-    # else:
-    #     name = 'World'
-    # return 'Hello {}!'.format(name)
+if __name__ == "__main__":
+    app.run(host="0.0.0.0", port=5000)
