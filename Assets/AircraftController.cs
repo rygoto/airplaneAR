@@ -1,0 +1,40 @@
+using System.Collections;
+using System.Collections.Generic;
+using UnityEngine;
+using UnityEngine.UI;
+
+public class AircraftController : MonoBehaviour
+{
+    [System.Serializable]
+    public class FlightData
+    {
+        public string airline_short_name;
+        public string new_destination;
+        public string new_origin;
+        public string unity_coordinates;
+        public string unity_heading;
+        public Vector3 instantiatePosition;
+        public Vector2 forwardVector;
+    }
+
+    public Text airlineText; // 航空会社のテキストUI
+    public Text destinationText; // 目的地のテキストUI
+    public Text originText; // 出発地のテキストUI
+
+    public float speed = 5.0f; // 航空機の速度
+
+    private void Update()
+    {
+        // 航空機を前進させる
+        transform.Translate(Vector3.forward * speed * Time.deltaTime);
+    }
+
+    public void SetFlightData(FlightData flightData)
+    {
+        // 航空機の情報をUIに表示
+        airlineText.text = "Airline: " + (flightData.airline_short_name ?? "N/A");
+        destinationText.text = "Destination: " + (flightData.new_destination ?? "N/A");
+        originText.text = "Origin: " + (flightData.new_origin ?? "N/A");
+
+    }
+}
