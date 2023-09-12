@@ -135,15 +135,16 @@ public class python : MonoBehaviour
                 aircraft.transform.position = instantiatePosition;
 
                 float angle = Mathf.Atan2(forwardVector.y, forwardVector.x) * Mathf.Rad2Deg;
-                Quaternion currentRotation = aircraft.transform.rotation;
-                Quaternion newRotation = Quaternion.Euler(currentRotation.eulerAngles.x, currentRotation.eulerAngles.y + 180f, currentRotation.eulerAngles.z);
 
-                // 航空機の角度を設定
+                // 指定したangleの向きにオブジェクトを回転させるQuaternionを計算
+                Quaternion newRotation = Quaternion.Euler(0f, angle + 180f, 0f);
+
+                // オブジェクトの回転を新しい回転に設定
                 aircraft.transform.rotation = newRotation;
 
                 // 速度を設定
                 AircraftController aircraftController = aircraft.GetComponent<AircraftController>();
-                aircraftController.speed = 5.0f; // 任意の速度を設定（この例では5.0f）
+                aircraftController.speed = -0.5f; // 任意の速度を設定（この例では5.0f）
 
                 // 航空機オブジェクトに情報を設定
                 if (aircraftController != null)
@@ -161,6 +162,8 @@ public class python : MonoBehaviour
                 {
                     Debug.LogError("Aircraft controller is null.");
                 }
+
+
             }
         }
         catch (Exception ex)

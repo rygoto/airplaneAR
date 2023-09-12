@@ -20,7 +20,7 @@ public class AircraftController : MonoBehaviour
     public TextMeshProUGUI destinationText; // 目的地のテキストUI
     public TextMeshProUGUI originText; // 出発地のテキストUI
 
-    public float speed = 5.0f; // 航空機の速度
+    public float speed = -0.5f; // 航空機の速度
 
     private void Update()
     {

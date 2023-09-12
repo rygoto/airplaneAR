@@ -37,8 +37,10 @@ def get_flight_data(latitude, longitude, radius):
             new_flight.set_flight_details(details)
 
             # 情報の変換
-            x = (new_flight.longitude - longitude) * (radius / 111.32)
-            z = (new_flight.latitude - latitude) * (radius / 111.32)
+            scale = 100
+            x = (new_flight.longitude - longitude) * 100 * scale / radius
+            z = (new_flight.latitude - latitude) * 100 * scale / radius
+            # *100(1経緯度当たりのkm換算、ざっくり) * 100(標示する座標の最大) * radius
 
             heading_degrees = new_flight.heading
             heading_radians = math.radians(heading_degrees)
@@ -90,7 +92,7 @@ def get_flight_data(latitude, longitude, radius):
                 ["OOKUBO", "HAKATA", "MEMANBETSU", "SHIMOSHIMMEI"]
             )
 
-            unko = 1 / 111.32
+            unko = radius / 111.32
             a_random = latitude + random.uniform(-unko, unko)
             b_random = longitude + random.uniform(-unko, unko)
             new_flight["longitude_latitude"] = f"({b_random},{a_random})"
@@ -102,8 +104,8 @@ def get_flight_data(latitude, longitude, radius):
             ] = f"({math.cos(heading_radians)},{math.sin(heading_radians)})"
 
             scale = 100
-            x = (b_random - longitude) * (radius / 111.32) * scale
-            z = (a_random - latitude) * (radius / 111.32) * scale
+            x = (b_random - longitude) * 100 * scale / radius
+            z = (a_random - latitude) * 100 * scale / radius
             new_flight["unity_x"] = x
             new_flight["unity_z"] = z
 
@@ -118,16 +120,15 @@ def hello_http(request):
     longitude = float(request.args.get("lon"))
     radius = float(request.args.get("r"))
 
-
     flight_data = get_flight_data(latitude, longitude, radius)
     return jsonify(flight_data)
 
 
-
 # これを実行したらどうなるか？
 def uuunko():
-    while(True):
+    while True:
         print("ねる！！！！！！")
+
 
 if __name__ == "__main__":
     app.run(host="0.0.0.0", port=5000)
