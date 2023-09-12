@@ -118,31 +118,16 @@ def hello_http(request):
     longitude = float(request.args.get("lon"))
     radius = float(request.args.get("r"))
 
-    # try:
-    #     flight_data = get_flight_data(latitude, longitude, radius)
-    #     return jsonify(flight_data)
-    # except Exception as e:
-    #     print(f"Error fetching flight data: {str(e)}")
-    #     alternative_data = get_flight_data(latitude, longitude, radius)
-    #     return jsonify(alternative_data)
 
     flight_data = get_flight_data(latitude, longitude, radius)
     return jsonify(flight_data)
-    # ctrl + /でコメントアウトできる　定義されてないからだ
-    # というよりget_flight_dataでエラーハンドリングしてるから
-    # ここではtry except しなくていいほうほう
-    # もしget_flight_data内でエラーが起きてもreturn alternative_dataされるから
-    # get_flight_dataの呼び出し側ではエラーは絶対に起きない
-    # そもそもこっちじゃalternative_dataは定義されてない！
-    # これだけでいい
-    # だってget_flight_data内でエラーが起きてもreturn alternative_dataされるだろ！
-    # pythonよくわからんがされると思う・・・
 
-    # ここなんでダメなんや
-    # 　たしかし。そしたらこっちでflight_dataとalternative_dataを分岐
-    # これでええんか？？　alternative_dataもflight_dataに格納されるんか？あぎゃす
-    # これでやってみるぜ
 
+
+# これを実行したらどうなるか？
+def uuunko():
+    while(True):
+        print("ねる！！！！！！")
 
 if __name__ == "__main__":
     app.run(host="0.0.0.0", port=5000)
