@@ -37,7 +37,6 @@ public class AircraftController : MonoBehaviour
         airlineText.text = "Airline: " + (flightData.airline_short_name ?? "N/A");
         destinationText.text = "Destination: " + (flightData.new_destination ?? "N/A");
         originText.text = "Origin: " + (flightData.new_origin ?? "N/A");
-
     }
 
     public void ShowFlightData(FlightData flightData)

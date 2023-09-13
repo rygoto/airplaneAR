@@ -59,8 +59,8 @@ public class python : MonoBehaviour
     public void StartSendingRequest()
     {
         // Unityの任意の値を設定
-        float latitude = 35.0f; // 例: 緯度
-        float longitude = 140.0f; // 例: 経度
+        float latitude = 40f; // 例: 緯度
+        float longitude = -74f; // 例: 経度
         float radius = 500f; // 例: 表示範囲
 
         Debug.Log("Sending request to: " + pythonServerUrl);
@@ -156,7 +156,7 @@ public class python : MonoBehaviour
                         flightDataForAircraft.new_origin = flightData.new_origin;
                     }
 
-                    aircraftController.SetFlightData(flightDataForAircraft);
+                    //aircraftController.SetFlightData(flightDataForAircraft);
                     aircraftController.ShowFlightData(flightDataForAircraft);
                 }
                 else

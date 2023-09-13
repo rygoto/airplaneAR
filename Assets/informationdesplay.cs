@@ -3,59 +3,62 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class informationdesplay : MonoBehaviour
+public class InformationDisplay : MonoBehaviour
 {
-    public Camera cameraobject;
+    public Camera cameraObject;
     private RaycastHit hit;
     public Text statusText;
     public CanvasGroup canvasGroup;
 
-    private void Start()
+    public class FlightData
     {
-        canvasGroup.alpha = 0;
-        canvasGroup.interactable = false;
-        canvasGroup.blocksRaycasts = false;
+        public string airline_short_name;
+        public string new_destination;
+        public string new_origin;
+        //public string unity_coordinates;
+        //public string unity_heading;
     }
 
-    private void Informationdesplay(objectinformation objectinformation)
+    private void Start()
     {
-        if (statusText != null && objectinformation != null)
+        HideCanvas();
+    }
+
+    private void Display(objectinformation objectInfo)
+    {
+        if (statusText != null && objectInfo != null)
         {
-            statusText.text = "Object Name: " + objectinformation.ObjectName +
-                              "Move Speed: " + objectinformation.moveSpeed;
+            statusText.text = "Object Name: " + objectInfo.ObjectName +
+                              " Move Speed: " + objectInfo.moveSpeed;
         }
     }
 
 
-    // Update is called once per frame
+
     private void Update()
     {
-        if(Input.GetMouseButtonDown(0))
+        if (Input.GetMouseButtonDown(0))
         {
-            Debug.Log("Left Mouse Button Clicked");
+            Ray ray = cameraObject.ScreenPointToRay(Input.mousePosition);
 
-            Ray ray = cameraobject.ScreenPointToRay(Input.mousePosition);
-
-            if(Physics.Raycast(ray, out hit))
+            if (Physics.Raycast(ray, out hit))
             {
-                Debug.Log("Ray hit object: " + hit.collider.gameObject.name);
-                Debug.Log("Hit point: " + hit.point);
+                Transform parentTransform = hit.collider.gameObject.transform;
+                AircraftController aircraftController = parentTransform.root.GetComponent<AircraftController>();
 
-                // その他のデバッグ情報を表示
-                Debug.DrawRay(ray.origin, ray.direction * hit.distance, Color.green, 2.0f);
-
-                objectinformation objectinformation = hit.collider.GetComponent<objectinformation>();
-
-                if (objectinformation != null)
+                if (aircraftController != null)
                 {
-                    Debug.Log("Object Name: " + objectinformation.ObjectName);
-                    Debug.Log("Move Speed: " + objectinformation.moveSpeed);
-
-                    Informationdesplay(objectinformation);
-
+                    AircraftController.FlightData showflight = new AircraftController.FlightData();
+                    {
+                        showflight.airline_short_name = aircraftController.airlineText.text;
+                        showflight.new_destination = aircraftController.destinationText.text;
+                        showflight.new_origin = aircraftController.originText.text;
+                    }
+                    Display(parentTransform.GetComponent<objectinformation>());
                     ShowCanvas();
-                }          
-
+                    Debug.Log("showflight.airline_short_name");
+                    //aircraftController.flightData
+                }
             }
         }
     }
@@ -69,7 +72,6 @@ public class informationdesplay : MonoBehaviour
 
     public void HideCanvas()
     {
-        // Canvasを非表示
         canvasGroup.alpha = 0;
         canvasGroup.interactable = false;
         canvasGroup.blocksRaycasts = false;
