@@ -60,7 +60,7 @@ public class python : MonoBehaviour
     {
         // Unityの任意の値を設定
         float latitude = 40f; // 例: 緯度
-        float longitude = -74f; // 例: 経度
+        float longitude = 29f; // 例: 経度
         float radius = 500f; // 例: 表示範囲
 
         Debug.Log("Sending request to: " + pythonServerUrl);
