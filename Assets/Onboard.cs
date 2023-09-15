@@ -5,12 +5,15 @@ using UnityEngine.UI;
 using UnityEngine.Networking;
 using System;
 
-public class Map : MonoBehaviour
+public class Onboard : MonoBehaviour
 {
+    private Inputfield inputfield;
+
+
     public string apiKey;
-    public float lat = 35;
-    public float lon = 139f;
-    public int zoom = 12;
+    //public float lat = 35;
+    //public float lon = 139f;
+    public int zoom = 8;
     public enum resolution { low = 1, high = 2 };
     public resolution mapResolution = resolution.low;
     public enum type { roadmap, satellite, gybrid, terrain };
@@ -33,6 +36,8 @@ public class Map : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        inputfield = FindObjectOfType<Inputfield>();
+
         StartCoroutine(GetGoogleMap());
         //rect = gameObject.GetComponent<RawImage>().rectTransform.rect;
         //mapWidth = (int)Math.Round(rect.width);
@@ -40,8 +45,12 @@ public class Map : MonoBehaviour
     }
 
     // Update is called once per frame
-    void Update()
+    public void StartGettingGoogleMap()
     {
+        float value1 = inputfield.GetInputField1Value();
+        float value2 = inputfield.GetInputField2Value();
+        float lat = value1;
+        float lon = value2;
         if (updateMap && (apiKeyLast != apiKey || !Mathf.Approximately(latLast, lat) || !Mathf.Approximately(lonLast, lon) || zoomLast != zoom || mapResolutionLast != mapResolution || mapTypeLast != mapType))
         {
             //rect = gameObject.GetComponent<RawImage>().rectTransform.rect;
@@ -55,6 +64,10 @@ public class Map : MonoBehaviour
 
     IEnumerator GetGoogleMap()
     {
+        float value1 = inputfield.GetInputField1Value();
+        float value2 = inputfield.GetInputField2Value();
+        float lat = value1;
+        float lon = value2;
         url = "https://maps.googleapis.com/maps/api/staticmap?center=" + lat + "," + lon + "&zoom=" + zoom + "&size=" + mapWidth + "x" + mapHeight + "&scale=" + mapResolution + "&maptype=" + mapType + "&key=" + apiKey;
         mapIsLoading = true;
         UnityWebRequest www = UnityWebRequestTexture.GetTexture(url);

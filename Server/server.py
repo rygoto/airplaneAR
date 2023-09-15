@@ -85,10 +85,8 @@ def get_flight_data(latitude, longitude, radius):
             new_flight["airline_short_name"] = random.choice(
                 ["ANA", "JAL", "CHUO-SPECIAL"]
             )
+            new_flight["new_origin"] = random.choice(["OOSAKI", "SOKA", "ZOSHIGAYA"])
             new_flight["new_destination"] = random.choice(
-                ["OOSAKI", "SOKA", "ZOSHIGAYA"]
-            )
-            new_flight["new_origin"] = random.choice(
                 ["OOKUBO", "HAKATA", "MEMANBETSU", "SHIMOSHIMMEI"]
             )
 

@@ -10,10 +10,17 @@ using System.Linq;
 
 public class python : MonoBehaviour
 {
+
     public GameObject aircraftPrefab;
 
     private string pythonServerUrl = "https://asia-northeast1-rugged-destiny-397810.cloudfunctions.net/unityresponse";  // Pythonサーバーのアドレスとポートを指定
 
+    private Inputfield inputfield;
+
+    private void Start()
+    {
+        inputfield = FindObjectOfType<Inputfield>();
+    }
     public static class JsonHelper
     {
         /// <summary>
@@ -58,9 +65,11 @@ public class python : MonoBehaviour
 
     public void StartSendingRequest()
     {
+        float value1 = inputfield.GetInputField1Value();
+        float value2 = inputfield.GetInputField2Value(); // Unityの任意の値を設定
         // Unityの任意の値を設定
-        float latitude = 40f; // 例: 緯度
-        float longitude = 29f; // 例: 経度
+        float latitude = value1; // 例: 緯度
+        float longitude = value2; // 例: 経度
         float radius = 500f; // 例: 表示範囲
 
         Debug.Log("Sending request to: " + pythonServerUrl);

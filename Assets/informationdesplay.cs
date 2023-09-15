@@ -39,12 +39,13 @@ public class InformationDisplay : MonoBehaviour
     {
         if (Input.GetMouseButtonDown(0))
         {
+
             Ray ray = cameraObject.ScreenPointToRay(Input.mousePosition);
 
             if (Physics.Raycast(ray, out hit))
             {
-                Transform parentTransform = hit.collider.gameObject.transform;
-                AircraftController aircraftController = parentTransform.root.GetComponent<AircraftController>();
+                Transform transform = hit.collider.gameObject.transform;
+                AircraftController aircraftController = transform.root.GetComponent<AircraftController>();
 
                 if (aircraftController != null)
                 {
@@ -54,7 +55,7 @@ public class InformationDisplay : MonoBehaviour
                         showflight.new_destination = aircraftController.destinationText.text;
                         showflight.new_origin = aircraftController.originText.text;
                     }
-                    Display(parentTransform.GetComponent<objectinformation>());
+                    Display(transform.GetComponent<objectinformation>());
                     ShowCanvas();
                     Debug.Log("showflight.airline_short_name");
                     //aircraftController.flightData
