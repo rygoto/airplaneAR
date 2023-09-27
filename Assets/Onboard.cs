@@ -79,6 +79,19 @@ public class Onboard : MonoBehaviour
         else
         {
             mapIsLoading = false;
+            Texture2D downloadedTexture = ((DownloadHandlerTexture)www.downloadHandler).texture;
+
+            Color[] pixels = downloadedTexture.GetPixels();
+            for (int i = 0; i < pixels.Length; i++)
+            {
+                Color pixel = pixels[i];
+                pixel.a *= 0.8f;
+                pixels[i] = pixel;
+            }
+            downloadedTexture.SetPixels(pixels);
+            downloadedTexture.Apply();
+
+
             GetComponent<Renderer>().material.mainTexture = ((DownloadHandlerTexture)www.downloadHandler).texture;
             //gameObject.GetComponent<RawImage>().texture = ((DownloadHandlerTexture)www.downloadHandler).texture;
 

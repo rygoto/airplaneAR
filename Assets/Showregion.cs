@@ -76,6 +76,10 @@ public class Showregion : MonoBehaviour
                 {
                     List<AdressComponent> addressComponents = geocodingResponse.results[0].address_components;
 
+                    string countryName = null;
+                    string stateName = null;
+                    string countyName = null;
+
                     foreach (var component in addressComponents)
                     {
                         List<string> types = component.types;
@@ -83,16 +87,22 @@ public class Showregion : MonoBehaviour
                         {
                             if (type == "administrative_area_level_1")
                             {
-                                string stateName = component.long_name;
-                                locationText.text = stateName + "上空";
+                                stateName = component.long_name;
                             }
                             else if (type == "administrative_area_level_2")
                             {
-                                string countyName = component.long_name;
-                                locationText.text = countyName + "上空";
+                                countyName = component.long_name;
+                                //locationText.text = countyName + "上空";
+                            }
+                            else if (type == "country")
+                            {
+                                countryName = component.long_name;
                             }
                         }
                     }
+
+                    string locationName = $"{countryName} {stateName} {countyName} 上空";
+                    locationText.text = locationName;
                 }
             }
         }

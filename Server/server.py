@@ -80,15 +80,13 @@ def get_flight_data(latitude, longitude, radius):
         alternative_data = []
         # これが定義じゃないのか　スコープが違う
         for _ in range(5):
-            new_flight = {}
-
-            new_flight["airline_short_name"] = random.choice(
-                ["ANA", "JAL", "CHUO-SPECIAL"]
-            )
-            new_flight["new_origin"] = random.choice(["OOSAKI", "SOKA", "ZOSHIGAYA"])
-            new_flight["new_destination"] = random.choice(
-                ["OOKUBO", "HAKATA", "MEMANBETSU", "SHIMOSHIMMEI"]
-            )
+            new_flight = {
+                "airline_short_name": random.choice(["ANA", "JAL", "CHUO-SPECIAL"]),
+                "new_origin": random.choice(["OOSAKI", "SOKA", "ZOSHIGAYA"]),
+                "new_destination": random.choice(
+                    ["OOKUBO", "HAKATA", "MEMANBETSU", "SHIMOSHIMMEI"]
+                ),
+            }
 
             unko = radius / 111.32
             a_random = latitude + random.uniform(-unko, unko)
