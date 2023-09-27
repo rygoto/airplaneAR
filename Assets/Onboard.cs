@@ -21,7 +21,7 @@ public class Onboard : MonoBehaviour
     private string url = "";
     private int mapWidth = 640;
     private int mapHeight = 640;
-    private bool mapIsLoading = false; //not used. Can be used to know that the map is loading 
+    //private bool mapIsLoading = false; //not used. Can be used to know that the map is loading 
     private Rect rect;
 
     private string apiKeyLast;
@@ -69,7 +69,7 @@ public class Onboard : MonoBehaviour
         float lat = value1;
         float lon = value2;
         url = "https://maps.googleapis.com/maps/api/staticmap?center=" + lat + "," + lon + "&zoom=" + zoom + "&size=" + mapWidth + "x" + mapHeight + "&scale=" + mapResolution + "&maptype=" + mapType + "&key=" + apiKey;
-        mapIsLoading = true;
+        //mapIsLoading = true;
         UnityWebRequest www = UnityWebRequestTexture.GetTexture(url);
         yield return www.SendWebRequest();
         if (www.result != UnityWebRequest.Result.Success)
@@ -78,7 +78,7 @@ public class Onboard : MonoBehaviour
         }
         else
         {
-            mapIsLoading = false;
+            //mapIsLoading = false;
             Texture2D downloadedTexture = ((DownloadHandlerTexture)www.downloadHandler).texture;
 
             Color[] pixels = downloadedTexture.GetPixels();
