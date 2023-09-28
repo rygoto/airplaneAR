@@ -37,7 +37,7 @@ public class request : MonoBehaviour
 
     private IEnumerator SendHttpRequest(float arg1, float arg2)
     {
-        string url = "https://asia-northeast1-rugged-destiny-397810.cloudfunctions.net/unityresponse";
+        string url = "";
 
         url += "?arg1=" + arg1.ToString() + "&arg2=" + arg2.ToString();
 

@@ -13,7 +13,7 @@ public class python : MonoBehaviour
 
     public GameObject aircraftPrefab;
 
-    private string pythonServerUrl = "https://asia-northeast1-rugged-destiny-397810.cloudfunctions.net/unityresponse";  // Pythonサーバーのアドレスとポートを指定
+    public string pythonServerUrl;  // Pythonサーバーのアドレスとポートを指定
 
     private Inputfield inputfield;
 

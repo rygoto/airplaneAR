@@ -13,8 +13,8 @@ public class Showregion : MonoBehaviour
 {
     private Inputfield inputfield;
     public TextMeshProUGUI locationText;
-    private string apiKey = "AIzaSyBxIrqs4Rhnv0Zzcy9YjmzyyEzLmK0tax4";
-    private string apiurl = "https://maps.googleapis.com/maps/api/geocode/json?";
+    public string apiKey;
+    public string apiurl;
 
     [Serializable]
     public class AdressComponent

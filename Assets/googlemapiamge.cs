@@ -7,7 +7,7 @@ public class googlemapiamge : MonoBehaviour
 {
     public float latitude;
     public float longitude;
-    private const string STATIC_MAP_URL = "https://maps.googleapis.com/maps/api/staticmap?key=AIzaSyBxIrqs4Rhnv0Zzcy9YjmzyyEzLmK0tax4&zoom=8&size=640x640&scale=2&maptype=satellite&style=element:labels|visibility:off";// Google Maps Static API URL、${APIKey}を作成したapiキーに書き換える
+    public string STATIC_MAP_URL;// Google Maps Static API URL、${APIKey}を作成したapiキーに書き換える
     private int frame = 0;
     public int frameset = 300;
 
