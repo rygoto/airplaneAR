@@ -1,7 +1,7 @@
 # ARairplaneShow
 ***
 ## Airplane Viewer
-You can see any airplanes currently flying on specified location(input longitude&latitude).
+You can see any airplanes currently flying anywhere in the world with specified location(input longitude&latitude).
 ## Feature
 Upon entering any number of longitudes and latitudes, the region's name and a satellite image appear, and soon, airplanes will be seen flying around your phone! 
 ## Information
