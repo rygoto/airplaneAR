@@ -101,7 +101,7 @@ public class Showregion : MonoBehaviour
                         }
                     }
 
-                    string locationName = $"{countryName} {stateName} {countyName} 上空";
+                    string locationName = $"{countryName} {stateName} {countyName}  OverSky"; //上空
                     locationText.text = locationName;
                 }
             }

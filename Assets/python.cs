@@ -140,6 +140,8 @@ public class python : MonoBehaviour
                 );
 
                 GameObject aircraft = Instantiate(aircraftPrefab);
+                aircraft.tag = "Aircraft";
+
                 // 航空機オブジェクトの位置と向きを設定
                 aircraft.transform.position = instantiatePosition;
 

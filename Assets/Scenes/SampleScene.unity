@@ -242,7 +242,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f5aeae80abedee24183e9ad4854d8bef, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  apiKey: AIzaSyBxIrqs4Rhnv0Zzcy9YjmzyyEzLmK0tax4
+  apiKey: AIzaSyBqP4DRQqCsokeI-ZKpIkKQV1rmarFr2eA
   zoom: 7
   mapResolution: 2
   mapType: 1
@@ -610,6 +610,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   aircraftPrefab: {fileID: 1426178925741539372, guid: e0fa49852cda10c45b03bf0721598c8f, type: 3}
+  pythonServerUrl: https://asia-northeast1-rugged-destiny-397810.cloudfunctions.net/unityresponse
 --- !u!4 &228156441
 Transform:
   m_ObjectHideFlags: 0
@@ -1609,7 +1610,7 @@ RectTransform:
   m_GameObject: {fileID: 618081932}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalScale: {x: 1.59, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 1910655104}
@@ -1618,7 +1619,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: 0, y: -0.5}
+  m_AnchoredPosition: {x: 72.8, y: -0.5}
   m_SizeDelta: {x: -20, y: -13}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &618081934
@@ -1760,7 +1761,9 @@ MonoBehaviour:
   m_CaretColor: {r: 0.19607843, g: 0.19607843, b: 0.19607843, a: 1}
   m_CustomCaretColor: 0
   m_SelectionColor: {r: 0.65882355, g: 0.80784315, b: 1, a: 0.7529412}
-  m_Text: "\u7DEF\u5EA6"
+  m_Text: 'latitude
+
+'
   m_CaretBlinkRate: 0.85
   m_CaretWidth: 1
   m_ReadOnly: 0
@@ -2250,8 +2253,8 @@ MonoBehaviour:
       m_Calls: []
   m_text: 
   m_isRightToLeft: 0
-  m_fontAsset: {fileID: 11400000, guid: b084dbe1dde50e44fa7976ce1aa12f9c, type: 2}
-  m_sharedMaterial: {fileID: -9075281503546572775, guid: b084dbe1dde50e44fa7976ce1aa12f9c, type: 2}
+  m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
+  m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
   m_fontMaterials: []
@@ -2279,7 +2282,7 @@ MonoBehaviour:
   m_fontSizeBase: 28.62
   m_fontWeight: 400
   m_enableAutoSizing: 1
-  m_fontSizeMin: 18
+  m_fontSizeMin: 7
   m_fontSizeMax: 72
   m_fontStyle: 0
   m_HorizontalAlignment: 1
@@ -2355,6 +2358,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   locationText: {fileID: 763082036}
+  apiKey: AIzaSyBqP4DRQqCsokeI-ZKpIkKQV1rmarFr2eA
+  apiurl: https://maps.googleapis.com/maps/api/geocode/json?
 --- !u!4 &774828394
 Transform:
   m_ObjectHideFlags: 0
@@ -3309,7 +3314,9 @@ MonoBehaviour:
   m_CaretColor: {r: 0.19607843, g: 0.19607843, b: 0.19607843, a: 1}
   m_CustomCaretColor: 0
   m_SelectionColor: {r: 0.65882355, g: 0.80784315, b: 1, a: 0.7529412}
-  m_Text: "\u7D4C\u5EA6"
+  m_Text: 'longitude
+
+'
   m_CaretBlinkRate: 0.85
   m_CaretWidth: 1
   m_ReadOnly: 0
@@ -3416,10 +3423,10 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: "\u7D4C\u5EA6\u200B"
+  m_text: "longitude\n\u200B"
   m_isRightToLeft: 0
-  m_fontAsset: {fileID: 11400000, guid: b084dbe1dde50e44fa7976ce1aa12f9c, type: 2}
-  m_sharedMaterial: {fileID: -9075281503546572775, guid: b084dbe1dde50e44fa7976ce1aa12f9c, type: 2}
+  m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
+  m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
   m_fontMaterials: []
@@ -3655,7 +3662,7 @@ RectTransform:
   m_GameObject: {fileID: 1300619191}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalScale: {x: 1.56, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 2039001144}
@@ -3664,7 +3671,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: 0, y: -0.5}
+  m_AnchoredPosition: {x: 68.1, y: -0.5}
   m_SizeDelta: {x: -20, y: -13}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1300619193
@@ -4171,7 +4178,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: New Text
+  m_Text: 
 --- !u!222 &1777761481
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -4199,6 +4206,7 @@ GameObject:
   - component: {fileID: 1840098531}
   - component: {fileID: 1840098534}
   - component: {fileID: 1840098535}
+  - component: {fileID: 1840098536}
   m_Layer: 0
   m_Name: Main Camera
   m_TagString: MainCamera
@@ -4488,6 +4496,23 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   movespeed: 1
+--- !u!114 &1840098536
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1840098523}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2c6425e9855e3c644bd723cda5683660, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  cameraTransform: {fileID: 1357712127}
+  aircraftAudioClip: {fileID: 8300000, guid: 2baeab893d99b9248baf8308d00bf9b4, type: 3}
+  minVolume: 0.3
+  maxVolume: 1
+  maxDistance: 100
 --- !u!1 &1910655103
 GameObject:
   m_ObjectHideFlags: 0
@@ -4568,8 +4593,8 @@ MonoBehaviour:
       m_Calls: []
   m_text: Enter text...
   m_isRightToLeft: 0
-  m_fontAsset: {fileID: 11400000, guid: b084dbe1dde50e44fa7976ce1aa12f9c, type: 2}
-  m_sharedMaterial: {fileID: -9075281503546572775, guid: b084dbe1dde50e44fa7976ce1aa12f9c, type: 2}
+  m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
+  m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
   m_fontMaterials: []
@@ -4867,10 +4892,10 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: "\u7DEF\u5EA6\u200B"
+  m_text: "latitude\n\u200B"
   m_isRightToLeft: 0
-  m_fontAsset: {fileID: 11400000, guid: b084dbe1dde50e44fa7976ce1aa12f9c, type: 2}
-  m_sharedMaterial: {fileID: -9075281503546572775, guid: b084dbe1dde50e44fa7976ce1aa12f9c, type: 2}
+  m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
+  m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
   m_fontMaterials: []
@@ -5024,8 +5049,8 @@ MonoBehaviour:
       m_Calls: []
   m_text: Enter text...
   m_isRightToLeft: 0
-  m_fontAsset: {fileID: 11400000, guid: b084dbe1dde50e44fa7976ce1aa12f9c, type: 2}
-  m_sharedMaterial: {fileID: -9075281503546572775, guid: b084dbe1dde50e44fa7976ce1aa12f9c, type: 2}
+  m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
+  m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
   m_fontMaterials: []
@@ -5325,15 +5350,19 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1208763259929908449, guid: e0fa49852cda10c45b03bf0721598c8f, type: 3}
       propertyPath: m_AnchoredPosition.y
-      value: -7.6
+      value: -15.58
       objectReference: {fileID: 0}
     - target: {fileID: 1426178925741539372, guid: e0fa49852cda10c45b03bf0721598c8f, type: 3}
       propertyPath: m_Name
       value: aircraft2
       objectReference: {fileID: 0}
+    - target: {fileID: 1426178925741539372, guid: e0fa49852cda10c45b03bf0721598c8f, type: 3}
+      propertyPath: m_TagString
+      value: Aircraft
+      objectReference: {fileID: 0}
     - target: {fileID: 1503198258106200619, guid: e0fa49852cda10c45b03bf0721598c8f, type: 3}
       propertyPath: m_AnchoredPosition.y
-      value: -35
+      value: -63.9
       objectReference: {fileID: 0}
     - target: {fileID: 1765726071061830294, guid: e0fa49852cda10c45b03bf0721598c8f, type: 3}
       propertyPath: m_LocalPosition.x
